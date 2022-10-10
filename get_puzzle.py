@@ -1,9 +1,8 @@
-#!/usr/bin/python
-
+# %%
 import requests
+import numpy as np
 from bs4 import BeautifulSoup
-
-
+# %%
 def get_puzzle(page_url):
     page = requests.get(page_url)
     soup = BeautifulSoup(page.text, 'html.parser')
@@ -29,10 +28,10 @@ def get_puzzle(page_url):
 
         row_specs.append(row_spec)
 
-    print("%d %d" % (len(row_specs), len(row_specs[0])))
-    print('\n'.join(row_specs))
-
-
+    #print("%d %d" % (len(row_specs), len(row_specs[0])))
+    #print('\n'.join(row_specs))
+    return row_specs
+# %%
 # Only works against the "old version" of the website, since the new version
 # uses client-side Javascript to download and display the puzzle.  The "size"
 # argument doesn't specify the actual puzzle size; rather, it maps to one of
@@ -55,5 +54,10 @@ def get_puzzle(page_url):
 #        12 = special weekly loop
 #        14 = special monthly loop
 
-get_puzzle('http://www.puzzle-loop.com/?v=0&size=5')
+pz_lst = [get_puzzle('http://www.puzzle-loop.com/?v=0&size=5') for _ in range(500)]
 
+# %% save
+data = np.array([[list(row) for row in pz] for pz in pz_lst])
+print(data.shape)
+np.savez("./save.npz",data)
+# %%
