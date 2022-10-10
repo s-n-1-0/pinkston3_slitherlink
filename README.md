@@ -1,3 +1,8 @@
+# Changes by Forked
+
+I just run get_puzzle repeatedly (n=500) in [get_puzzle.py](https://github.com/s-n-1-0/pinkston3_slitherlink/blob/master/get_puzzle.py) and save it with np.save.
+
+---
 # Slitherlink Solver
 
 For a while I was addicted to the game Slither Link
